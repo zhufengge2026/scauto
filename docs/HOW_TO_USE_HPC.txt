@@ -1,0 +1,80 @@
+How to Use HPC
+==============
+
+HPC means High-Performance Computing: a shared university cluster, not
+this laptop. You upload the
+ticked samples; the cluster runs the analysis; results copy back here.
+Use your own account. Do not share logins, passwords, SSH keys, or
+hpc/config.env.
+
+
+1. Get an account (once)
+------------------------
+
+- Ask university IT department. The university HPC office issues a
+  username (usually not your email) and a first password. You cannot
+  invent a login.
+- Off-campus: connect the university VPN before SSH.
+
+
+2. SSH key (once, in Terminal — not in this helper)
+---------------------------------------------------
+
+This helper cannot type a password. After the key is installed, Test SSH
+and Submit to HPC work without one. Mac: Terminal. Windows: OpenSSH or
+Git Bash.
+
+  ssh-keygen -t ed25519
+  ssh YOUR_USER@hpc.example.edu
+  ssh-copy-id YOUR_USER@hpc.example.edu
+
+First ssh: type yes, then your HPC password. The next ssh should log in
+without a password — then type exit. Replace YOUR_USER. The host field
+may be an SSH alias (for example hpc).
+
+Windows without ssh-copy-id, in PowerShell:
+
+  type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh YOUR_USER@hpc.example.edu "mkdir -p .ssh && cat >> .ssh/authorized_keys"
+
+
+3. One-click in this helper
+---------------------------
+
+- Tick samples on the Data page.
+- Click Use university HPC.
+- Fill host and username. Leave the cluster folder blank the first time.
+- Test SSH connection. If it fails, repeat the SSH key steps above.
+- Submit to HPC copies only the ticked 10x folders, runs on queue
+  the queue name your HPC office gives you, and copies results/ back.
+- Keep this computer on for copy-back. The cluster job keeps running if
+  you close the laptop. Reopen the helper → Continue last HPC job.
+  Close on that banner only hides the notice.
+
+
+4. If one-click cannot run
+--------------------------
+
+In the HPC window: Download scripts only (.zip). Unzip and follow
+README.md / COMMANDS.txt: copy this helper and the ticked 10x folders to
+your cluster path; edit PROJECT_DIR if needed. On the login node
+(compute nodes have no internet), once:
+
+  Rscript tools/scauto/check_install.R --install
+  chmod +x hpc/submit.sh
+  bash hpc/submit.sh
+  qstat -u "$USER"
+
+
+5. If something fails
+---------------------
+
+- Password asked again: SSH key not installed — repeat the SSH key
+  steps above. Check the username.
+- Timed out / host unknown: VPN, or the host name is wrong.
+- Windows has no ssh / rsync: OpenSSH and Git for Windows (Git Bash
+  includes rsync).
+- Job sits in queue: normal on a shared cluster. Wait.
+- Job failed: send logs/pipeline.log to whoever maintains this helper.
+  Do not send passwords.
+- Force Stop ends a local run, or qdel if this helper submitted the
+  job. It does not delete results already copied here.

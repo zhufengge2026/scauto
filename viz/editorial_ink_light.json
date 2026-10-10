@@ -1,0 +1,38 @@
+{
+  "id": "D-light",
+  "name": "Editorial Ink Light",
+  "ink": "#4A4A4A",
+  "paper": "#FFFFFF",
+  "paper_warm": "#FAF8F4",
+  "clinical": {
+    "GroupA": "#6B8CAD",
+    "GroupB": "#E08A5A",
+    "Baseline": "#7FA890",
+    "Followup": "#D4BC8A"
+  },
+  "lineage": {
+    "CD4_T": "#6B8CAD",
+    "CD8_T": "#8FB4D0",
+    "NK": "#4F7A62",
+    "B": "#E08A5A",
+    "Plasma": "#B87A88",
+    "CD14_Mono": "#D4BC8A",
+    "CD16_Mono": "#E8DCC0",
+    "cDC": "#E5D2B8",
+    "pDC": "#B89A78",
+    "MAIT": "#9A8CB8",
+    "gdT": "#B5A8D0",
+    "Platelet": "#D4CFC6",
+    "RBC": "#D08080",
+    "Prolif": "#D49068"
+  },
+  "cluster26": [
+    "#6B8CAD", "#8FB4D0", "#C5DCE8", "#E08A5A", "#E8B890", "#B87A88",
+    "#7FA890", "#8FB89A", "#C5DFC8", "#E5D2B8", "#B89A78", "#9A8CB8",
+    "#B5A8D0", "#D4CFC6", "#D49068", "#D4BC8A", "#8A8A8A", "#9AA8B0",
+    "#7A9AB8", "#D4785A", "#C49A7A", "#6A9A80", "#A8C4B0", "#E0C8A8",
+    "#9A8AB0", "#D08080"
+  ],
+  "sequential": ["#FAF6F0", "#EDD9C4", "#E08A5A", "#C45C26", "#8A3A14"],
+  "diverging": ["#6B8CAD", "#B0C4D8", "#FAF8F4", "#E8B890", "#E08A5A"]
+}

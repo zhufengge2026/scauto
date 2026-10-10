@@ -1,0 +1,7 @@
+"ref_id","citation_short","title","journal_year","doi","pmid","note","verified"
+"Hao2021","Hao et al. 2021","Integrated analysis of multimodal single-cell data","Cell 2021","10.1016/j.cell.2021.04.048","34062119","Azimuth / HuBMAP PBMC multimodal reference marker panels","TRUE"
+"Liberzon2015","Liberzon et al. 2015","The Molecular Signatures Database (MSigDB) hallmark gene set collection","Cell Syst 2015","10.1016/j.cels.2015.12.004","26771021","MSigDB Hallmark (IFN / UPR / cell-cycle / inflammatory)","TRUE"
+"Ashburner2000","Ashburner et al. 2000 / GO","Gene ontology: tool for the unification of biology","Nat Genet 2000","10.1038/75556","10802651","GO Biological Process via MSigDB","TRUE"
+"Kotliar2025","Kotliar et al. 2025","Reproducible single-cell annotation of programs underlying T cell subsets, activation states and functions","Nat Methods 2025","10.1038/s41592-025-02793-1","40903640","Consensus T-cell gene-expression programs (naive/EM/cytotoxic/Treg/activation)","TRUE"
+"Garner2023","Garner et al. 2023","Single-cell analysis of human MAIT cell transcriptional, functional and clonal diversity","Nat Immunol 2023","10.1038/s41590-023-01575-1","37580605","Blood/liver MAIT scRNA+TCR; resting vs TCR- vs cytokine-activated programs","TRUE"
+"Abbas2009_GSE22886","Abbas et al. 2005 (GSE22886)","Immune response in silico (IRIS): immune-specific genes identified from a compendium of microarray expression data","Genes Immun 2005","10.1038/sj.gene.6364173","15789058","MSigDB C7 from GEO GSE22886 (dataset 2010; paper 2005). ref_id kept for compatibility","TRUE"

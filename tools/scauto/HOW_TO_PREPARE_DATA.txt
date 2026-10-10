@@ -1,0 +1,173 @@
+How to Prepare Data
+===================
+
+This helper is built for data from the 10x Genomics platform (Chromium
+single-cell RNA-seq, processed with Cell Ranger). That is the kit from
+10x Genomics, Inc. — not Parse, BD Rhapsody, Smart-seq, or a matrix you
+already analysed in R/Python. If the run was on an MGI Tech (MGI / DNBSEQ)
+sequencer, read section 3 — MGI is a different company. If you only want
+to try the software, click Use trial samples — you do not need your own
+data for that.
+
+
+1. What 10x Genomics output looks like
+--------------------------------------
+
+Each sample is one folder. The folder name is the sample ID (for example
+sampleA). Inside it you need exactly these three files (names must match;
+.gz is fine):
+
+  matrix.mtx    or matrix.mtx.gz     — counts
+  barcodes.tsv  or barcodes.tsv.gz   — cell barcodes, one per line
+  features.tsv  or genes.tsv (or .gz) — genes
+
+Several samples: put those folders next to each other, then choose the
+parent folder:
+
+  my_experiment/
+    sampleA/
+      matrix.mtx
+      barcodes.tsv
+      features.tsv
+    sampleC/
+      matrix.mtx
+      barcodes.tsv
+      features.tsv
+
+One sample only: you may choose that sample folder itself. Cell Ranger’s
+filtered_feature_bc_matrix (or outs/filtered_feature_bc_matrix) is
+detected automatically — you can choose the Cell Ranger sample folder.
+
+
+2. If the data came from the 10x Genomics platform
+--------------------------------------------------
+
+Typical path after Chromium + Cell Ranger:
+  …/<sample>/outs/filtered_feature_bc_matrix/
+with the three files above. Space Ranger / Visium spatial data is not
+this helper.
+
+- Prefer filtered matrices, not raw (raw includes empty droplets).
+- If you have both .h5 and the three mtx files, point the helper at the
+  folder that contains matrix.mtx.
+- If you only have filtered_feature_bc_matrix.h5, export the triplet
+  (ask a colleague who uses R) with DropletUtils, then use the new
+  folder:
+
+    library(DropletUtils)
+    x <- read10xCounts("filtered_feature_bc_matrix.h5")
+    write10xCounts("sampleA", x)
+
+
+3. If the data was sequenced on MGI (MGI Tech / DNBSEQ)
+-------------------------------------------------------
+
+MGI (MGI Tech) is not 10x Genomics. Two common situations look similar
+in a delivery folder but are prepared differently.
+
+A. 10x Genomics Chromium library, sequenced on an MGI machine
+   (DNBSEQ-G400, T7, T10, MGISEQ, …). The kit is still 10x; only the
+   sequencer changed.
+
+  - If the core already ran Cell Ranger and gave you
+    filtered_feature_bc_matrix (the three files in section 1), treat it
+    as 10x Genomics data and choose that folder. You are done.
+  - If you only have FASTQ named like *.fq.gz or *_1.fq.gz / *_2.fq.gz
+    (MGI naming, not Illumina _R1_001.fastq.gz): this helper cannot run
+    Cell Ranger. Ask the core to convert MGI FASTQ to Illumina-style
+    FASTQ and run Cell Ranger, then use the mtx folder.
+  - Do not point this helper at the MGI FASTQ zip.
+
+B. MGI’s own single-cell kit (DNBelab C4 / C series / C-TaiM, or a
+   report that says DNBelab). This is not Chromium chemistry. Cell Ranger
+   for 10x will not barcode it correctly.
+
+  - Use MGI’s DNBelab C series analysis software (or the pipeline the
+    sequencing core already ran) until you have a gene-by-cell count
+    matrix.
+  - If that software already wrote matrix.mtx + barcodes.tsv +
+    features.tsv, choose that folder here — the helper only needs those
+    three names.
+  - If you received RDS, h5ad, or a gene × cell table instead, convert
+    as in section 4.
+
+C. MGI Stereo-seq (spatial) is not this helper.
+
+Not sure which case you have? Open the delivery PDF / README:
+“Chromium / Cell Ranger” → A; “DNBelab / C4” → B.
+
+
+4. If the data is not from the 10x Genomics platform
+----------------------------------------------------
+
+Another company’s kit (Parse Biosciences, BD Rhapsody, Fluidigm,
+SMART-seq / plate-based), or a file you already analysed (Seurat RDS,
+scanpy h5ad, Excel/CSV), will not open as-is. Convert each sample into
+the three-file Cell Ranger folder above, using human gene symbols where
+possible (this pipeline is for human PBMC). Ask a colleague who uses R
+or Python if the snippets below are unfamiliar.
+
+From a Seurat object — split by sample first if several libraries are
+in one RDS:
+
+  library(Seurat)
+  library(DropletUtils)
+  obj <- readRDS("my_object.rds")
+  # genes as rows, cells as columns (Seurat v5; v4: slot = "counts")
+  write10xCounts("sampleA", GetAssayData(obj, layer = "counts"))
+
+From AnnData / scanpy (.h5ad) — 10x mtx is genes × cells, so the matrix
+is transposed:
+
+  import os, pandas as pd, scanpy as sc
+  from scipy.io import mmwrite
+  adata = sc.read_h5ad("sample.h5ad")
+  os.makedirs("sampleA", exist_ok=True)
+  mmwrite("sampleA/matrix.mtx", adata.X.T)
+  pd.Series(adata.obs_names).to_csv("sampleA/barcodes.tsv", index=False, header=False)
+  g = adata.var_names
+  pd.DataFrame({0: g, 1: g, 2: "Gene Expression"}).to_csv(
+      "sampleA/features.tsv", sep="\t", index=False, header=False)
+
+From a gene × cell CSV (Excel: File → Save As → CSV). Gene names in the
+first column; cell barcodes in the header. Excel or a Word table is not
+enough on its own:
+
+  library(Matrix)
+  library(DropletUtils)
+  m <- read.csv("counts.csv", row.names = 1, check.names = FALSE)
+  write10xCounts("sampleA", as(as.matrix(m), "dgCMatrix"))
+
+From FASTQ on the 10x Genomics platform: run Cell Ranger first
+(count / multi). This helper does not align reads. Do not point it at
+the FASTQ zip from the core.
+
+From another company’s platform (Parse Biosciences, BD Rhapsody,
+SMART-seq, MGI DNBelab, …): finish that vendor’s pipeline until you
+have a gene-by-cell count matrix, then write the Cell Ranger three-file
+folder as above. Name each folder with your library ID.
+
+
+5. After the folders are ready
+------------------------------
+
+- Click Choose folder… and open the parent folder (or one sample folder).
+- Tick the samples to analyse. RAM and disk are checked automatically.
+- On Groups, type the same spelling for samples in the same clinical
+  group (for example GroupA / GroupB).
+- If this computer is too small, use Use university HPC — see
+  HOW_TO_USE_HPC.txt.
+
+
+6. What will not work
+---------------------
+
+- A zip of FASTQ files (Illumina or MGI .fq.gz), or a GEO Series matrix,
+  dropped in without conversion.
+- DNBelab / MGI raw output before their analysis software has written a
+  gene-by-cell matrix.
+- A single .rds / .h5ad / .h5seurat of the whole study.
+- Pictures of the matrix, or a Word table.
+- Mouse gene names if you expect the human PBMC lineage labels in this
+  helper.
+- MGI Stereo-seq spatial data.

@@ -1,0 +1,68 @@
+{
+  "description": "Classic human PBMC scRNA-seq lineage marker panels for cluster annotation (this project).",
+  "reference": "Azimuth PBMC / Hao et al. Cell 2021; Satija PBMC tutorials; Monaco Immune; standard blood atlas markers",
+  "lineages": {
+    "CD4_T": {
+      "genes": ["CD3D", "CD3E", "CD4", "IL7R", "LEF1", "TCF7", "CCR7", "LTB"],
+      "note": "Helper T; naive/memory share CD3+CD4+IL7R"
+    },
+    "CD8_T": {
+      "genes": ["CD3D", "CD3E", "CD8A", "CD8B", "GZMK", "CCL5", "NKG7"],
+      "note": "Cytotoxic T; Tem often GZMK+"
+    },
+    "NK": {
+      "genes": ["NKG7", "GNLY", "KLRD1", "KLRF1", "NCR1", "PRF1", "FCGR3A", "TYROBP"],
+      "note": "NK; CD56bright vs CD16+ share NKG7/GNLY"
+    },
+    "B": {
+      "genes": ["MS4A1", "CD79A", "CD79B", "CD19", "PAX5", "BANK1", "CD74", "HLA-DRA"],
+      "note": "B lineage; MS4A1=CD20"
+    },
+    "Plasma": {
+      "genes": ["MZB1", "JCHAIN", "SDC1", "TNFRSF17", "XBP1", "PRDM1", "IGKC"],
+      "note": "Plasma / plasmablast"
+    },
+    "CD14_Mono": {
+      "genes": ["CD14", "LYZ", "S100A8", "S100A9", "VCAN", "FCN1", "CTSS"],
+      "note": "Classical monocytes"
+    },
+    "CD16_Mono": {
+      "genes": ["FCGR3A", "MS4A7", "CDKN1C", "LST1", "AIF1", "CSF1R"],
+      "note": "Non-classical monocytes"
+    },
+    "cDC": {
+      "genes": ["FCER1A", "CD1C", "CLEC10A", "CLEC9A", "FLT3", "HLA-DQA1"],
+      "note": "Conventional DC (cDC1/cDC2)"
+    },
+    "pDC": {
+      "genes": ["LILRA4", "IL3RA", "IRF7", "TCF4", "CLEC4C", "GZMB"],
+      "note": "Plasmacytoid DC"
+    },
+    "MAIT": {
+      "genes": ["SLC4A10", "KLRB1", "TRAV1-2", "ZBTB16", "NCR3", "RORC"],
+      "note": "MAIT / innate-like T"
+    },
+    "gdT": {
+      "genes": ["TRDC", "TRGC1", "TRGC2", "TRDV2", "KLRD1"],
+      "note": "gamma-delta T"
+    },
+    "Platelet": {
+      "genes": ["PPBP", "PF4", "GP9", "NRGN", "TUBB1", "ITGA2B"],
+      "note": "Platelet / megakaryocyte fragments"
+    },
+    "RBC": {
+      "genes": ["HBA1", "HBA2", "HBB", "ALAS2", "GYPA"],
+      "note": "Erythroid"
+    },
+    "Prolif": {
+      "genes": ["MKI67", "TOP2A", "STMN1", "TYMS", "PCNA", "UBE2C"],
+      "note": "Cycling / proliferating"
+    }
+  },
+  "dotplot_order": [
+    "CD4_T", "CD8_T", "NK", "MAIT", "gdT",
+    "B", "Plasma",
+    "CD14_Mono", "CD16_Mono", "cDC", "pDC",
+    "Platelet", "RBC", "Prolif"
+  ]
+}

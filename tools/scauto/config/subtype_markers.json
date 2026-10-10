@@ -1,0 +1,50 @@
+{
+  "description": "Compact human PBMC subtype marker panels for Auto-Pilot suggested labels (Azimuth / Hao Cell 2021; CellTypist Immune_All_Low; Terekhova 2023; Stewart ABC).",
+  "lineages": {
+    "CD4_T": {
+      "CD4_naive": ["CCR7", "LEF1", "TCF7", "SELL", "NOSIP"],
+      "CD4_TCM": ["CCR7", "AQP3", "IL7R", "CD27", "LTB"],
+      "CD4_TEM": ["CCL5", "GZMK", "LGALS1", "ANXA1", "S100A4"],
+      "CD4_Treg": ["FOXP3", "IL2RA", "CTLA4", "IKZF2", "TIGIT", "RTKN2"],
+      "CD4_Tfh": ["CXCR5", "BCL6", "ICA1", "TOX2"],
+      "CD4_CTL": ["GZMB", "GZMA", "GNLY", "NKG7", "PRF1", "GZMH", "FGFBP2"],
+      "CD8_like": ["CD8A", "CD8B"],
+      "CD4_IFN": ["ISG15", "IFIT1", "IFIT3", "MX1", "OAS1"],
+      "CD4_prolif": ["MKI67", "TOP2A", "STMN1", "TYMS"]
+    },
+    "CD8_T_unconv": {
+      "CD8_naive": ["CCR7", "LEF1", "TCF7", "SELL", "CD8B"],
+      "CD8_TCM": ["CCR7", "IL7R", "CD27", "LTB"],
+      "CD8_TEM": ["GZMK", "CCL5", "EOMES", "DTHD1", "CST7"],
+      "CD8_TEMRA": ["GZMB", "GNLY", "FGFBP2", "CX3CR1", "FCGR3A"],
+      "MAIT": ["SLC4A10", "KLRB1", "ZBTB16", "NCR3", "TRAV1-2"],
+      "gdT": ["TRDC", "TRGC1", "TRGC2", "TRDV2"],
+      "NK_like": ["NCAM1", "KLRC2", "TYROBP", "IKZF2", "FCER1G"],
+      "CD8_IFN": ["ISG15", "IFIT1", "MX1", "OAS1"],
+      "CD8_prolif": ["MKI67", "TOP2A", "STMN1", "TYMS"]
+    },
+    "NK": {
+      "NK_CD56bright": ["NCAM1", "XCL1", "XCL2", "SELL", "IL7R", "KLRC1", "GZMK"],
+      "NK_CD16dim": ["FCGR3A", "PRF1", "GZMB", "FGFBP2", "SPON2"],
+      "NK_adaptive": ["KLRC2", "KLRC3", "CD3D", "IKZF2"],
+      "NK_IFN": ["ISG15", "IFIT1", "MX1", "OAS1"],
+      "NK_prolif": ["MKI67", "TOP2A", "STMN1"]
+    },
+    "Mono_DC": {
+      "CD14_Mono": ["CD14", "LYZ", "S100A8", "S100A9", "VCAN", "FCN1"],
+      "CD16_Mono": ["FCGR3A", "MS4A7", "CDKN1C", "LST1", "CSF1R"],
+      "cDC": ["FCER1A", "CD1C", "CLEC10A", "CLEC9A", "FLT3"],
+      "pDC": ["LILRA4", "IL3RA", "IRF7", "TCF4", "CLEC4C"],
+      "mregDC": ["LAMP3", "CCR7", "FSCN1", "BIRC3", "IDO1"],
+      "IFN_Mono": ["ISG15", "IFIT1", "MX1", "SIGLEC1"]
+    },
+    "B_plasma": {
+      "B_naive": ["TCL1A", "IGHD", "IGHM", "FCER2", "IL4R"],
+      "B_unswitched_memory": ["CD27", "IGHM", "IGHD", "CD24"],
+      "B_switched_memory": ["CD27", "IGHG1", "IGHG3", "COCH", "TNFRSF13B"],
+      "B_IFN": ["ISG15", "IFIT1", "MX1", "OAS1"],
+      "ABC_like": ["TBX21", "ITGAX", "FCRL5", "FGR"],
+      "Plasma": ["MZB1", "JCHAIN", "XBP1", "PRDM1", "TNFRSF17"]
+    }
+  }
+}

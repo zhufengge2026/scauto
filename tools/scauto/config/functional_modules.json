@@ -1,0 +1,47 @@
+{
+  "description": "Compact PBMC functional modules (6-12 genes) for subtype heatmaps. Prefer project literature_modules catalogs when present.",
+  "CD4_T": {
+    "NAIVE_STEM": ["CCR7", "LEF1", "TCF7", "SELL", "IL7R"],
+    "TREG": ["FOXP3", "IL2RA", "CTLA4", "IKZF2", "TIGIT"],
+    "TFH": ["CXCR5", "BCL6", "ICA1", "TOX2", "PDCD1"],
+    "TH1": ["IFNG", "CXCR3", "TBX21", "GZMK"],
+    "TH2": ["GATA3", "IL4I1", "CCR4"],
+    "TH17": ["CCR6", "RORC", "KLRB1"],
+    "CD4_CTL": ["GZMB", "GNLY", "PRF1", "NKG7"],
+    "IFN": ["ISG15", "IFIT1", "MX1", "OAS1", "STAT1"],
+    "PROLIF": ["MKI67", "TOP2A", "STMN1", "TYMS"]
+  },
+  "CD8_T_unconv": {
+    "CYTOTOXICITY": ["PRF1", "GZMB", "GZMA", "GNLY", "NKG7", "CST7"],
+    "NAIVE_STEM": ["CCR7", "SELL", "TCF7", "LEF1", "IL7R"],
+    "GZMK_MEMORY": ["GZMK", "EOMES", "CCL5", "CST7", "CXCR3"],
+    "TEMRA": ["GZMB", "GNLY", "FGFBP2", "CX3CR1", "FCGR3A"],
+    "MAIT_IDENTITY": ["SLC4A10", "KLRB1", "ZBTB16", "NCR3", "TRAV1-2"],
+    "GDT_IDENTITY": ["TRDC", "TRGC1", "TRGC2", "TRDV2"],
+    "IFN": ["ISG15", "IFIT1", "MX1", "OAS1", "STAT1"],
+    "PROLIF": ["MKI67", "TOP2A", "STMN1", "TYMS"]
+  },
+  "NK": {
+    "CYTOTOXICITY": ["PRF1", "GZMB", "GNLY", "NKG7", "FGFBP2"],
+    "CD56BRIGHT": ["NCAM1", "XCL1", "SELL", "KLRC1"],
+    "CD16DIM": ["FCGR3A", "SPON2", "FCER1G"],
+    "ADAPTIVE": ["KLRC2", "KLRC3"],
+    "IFN": ["ISG15", "IFIT1", "MX1", "OAS1"],
+    "PROLIF": ["MKI67", "TOP2A", "STMN1"]
+  },
+  "Mono_DC": {
+    "CLASSICAL": ["CD14", "LYZ", "S100A8", "S100A9", "VCAN"],
+    "NONCLASSICAL": ["FCGR3A", "MS4A7", "CDKN1C", "LST1"],
+    "CDC": ["FCER1A", "CD1C", "CLEC10A", "FLT3"],
+    "PDC": ["LILRA4", "IL3RA", "IRF7", "TCF4"],
+    "INFLAM": ["IL1B", "TNF", "NLRP3", "CXCL8"],
+    "IFN": ["ISG15", "IFIT1", "MX1", "STAT1"]
+  },
+  "B_plasma": {
+    "NAIVE": ["TCL1A", "IGHD", "FCER2", "IL4R"],
+    "MEMORY": ["CD27", "TNFRSF13B", "AIM2"],
+    "PLASMA": ["MZB1", "JCHAIN", "XBP1", "PRDM1", "SDC1"],
+    "ABC": ["TBX21", "ITGAX", "FCRL5"],
+    "IFN": ["ISG15", "IFIT1", "MX1", "OAS1"]
+  }
+}

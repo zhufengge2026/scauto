@@ -1,0 +1,201 @@
+# PBMC Auto-Pilot default parameters.
+# Override with --config other.yaml (deep-merged on top of this file).
+
+project_name: pbmc_autopilot
+
+memory:
+  laptop_max_cells: 30000
+  warn_cells: 30000
+  hpc_required_cells: 50000
+  join_layers_max_cells: 40000
+  save_rds: true
+
+# Tissue type for QC. liver → mitochondrial % cutoff 50%; otherwise 10%.
+tissue: pbmc
+
+qc:
+  min_ncount: 1000
+  max_ncount: 40000
+  max_nfeature: 8000
+  max_percent_mt: 10
+  # Applied automatically when tissue is liver if this is still 10.
+  max_percent_mt_liver: 50
+  min_cells_per_gene: 3
+  min_cells_per_gene_frac: 0.0001
+  mt_pattern: "^MT-"
+  ribo_pattern: "^RP[SL][0-9]"
+  hb_pattern: "^HB[ABDEM]"
+  hk_genes:
+    - ACTB
+    - GAPDH
+    - B2M
+    - PPIA
+    - EEF1A1
+    - UBC
+    - PSMB2
+    - PSMB4
+    - VCP
+    - CHMP2A
+    - C1orf43
+    - REEP5
+    - SNRPD3
+    - VPS29
+    - EMC7
+    - GPI
+    - RAB7A
+
+normalize:
+  scale_factor: 10000
+  n_hvg: 2000
+  n_hvg_raw: 3000
+  drop_mt_from_hvg: true
+  drop_ribo_from_hvg: true
+  npcs: 50
+  cluster_dims: 30
+  seed: 42
+
+harmony:
+  enable: auto
+  batch_var: sample
+  # Harmony 2 (harmony ≥1.2) is conservative: theta=2 + early_stop often
+  # converges in 1 iteration and leaves libraries unmixed.
+  theta: 4
+  max_iter: 20
+  early_stop: false
+  project_dim: false
+
+cluster:
+  algorithm: 4
+  resolution: 0.8
+  n_neighbors: 20
+
+markers:
+  test: wilcox
+  min_pct: 0.05
+  logfc_threshold: 0.1
+  return_thresh: 1
+  only_pos: false
+  n_top: 100
+  # Lineage subtype FindAllMarkers + DotPlot: drop MT- / MTRNR / RPL / RPS /
+  # MRPL / MRPS / FAU / UBA52; DotPlot also drops RP11- style clone IDs
+  drop_mt_ribo: true
+
+lineage:
+  score_min: 0.12
+  margin_min: 0.04
+
+recluster:
+  min_cells: 80
+  n_hvg: 2000
+  npcs: 30
+  dims: 20
+  resolution: 0.4
+  nk_resolution: 0.2
+  min_clusters: 3
+  max_resolution: 1.4
+  n_neighbors: 20
+  # Leiden (same as atlas). Louvain at 0.4 often stops at 3 clusters for CD8.
+  algorithm: 4
+  # Floor for cluster count / starting resolution by superlineage.
+  # CD8+unconv and Mono+DC were under-split on the 2-sample trial because the
+  # bump loop stopped as soon as min_clusters=3 was reached.
+  by_lineage:
+    CD8_T_unconv:
+      resolution: 0.8
+      min_clusters: 6
+      max_resolution: 1.8
+    Mono_DC:
+      resolution: 0.7
+      min_clusters: 5
+      max_resolution: 1.6
+    CD4_T:
+      min_clusters: 5
+      max_resolution: 1.4
+    B_plasma:
+      min_clusters: 4
+      max_resolution: 1.4
+    NK:
+      resolution: 0.2
+      min_clusters: 3
+      max_resolution: 0.8
+
+clinical:
+  group_col: group
+  extra_group_cols: []
+  min_samples_per_group: 2
+  reference_group: null
+
+# Sample-level numbers (Age, platelets, ALT, …) vs subtype proportions.
+# Off unless Advanced Settings uploads a CSV, or --meta already has numeric
+# columns and enable is auto/true. Spearman heatmap matches the CD8 T+unconv
+# clinical-numeric figure (rho in tiles, uncorrected stars, BH in tables).
+clinical_numeric:
+  enable: auto
+  csv: null
+  columns: []
+  min_samples: 3
+
+# Wilcoxon + MAST FindMarkers between clinical groups, per lineage pool
+# and per subtype. Folders: clinical/<lineage>/deg_wilcoxon and deg_MAST
+# (copied under lineage/<lineage>/ as well).
+deg:
+  enable: true
+  methods:
+    - wilcoxon
+    - MAST
+  min_cells_per_group: 10
+  min_pct: 0.1
+  logfc_threshold: 0.1
+  padj_cutoff: 0.05
+  lfc_cutoff: 0.25
+  volcano_n_label: 12
+  drop_mt_ribo: true
+  max_cells_per_ident: null
+
+azimuth:
+  enable: false
+  reference: pbmcref
+
+celltypist:
+  enable: false
+  models:
+    - Immune_All_Low.pkl
+    - Immune_All_High.pkl
+  batch_cells: 8000
+
+# Lineage-internal subtype names. Auto: run `cassia subcluster` when the CLI
+# and an agent/API backend are present (local Claude Code, etc.). HPC compute
+# nodes have no internet, so auto falls back to compact marker panels.
+cassia:
+  enable: auto
+  backend: auto
+  tissue: peripheral blood
+  species: human
+  n_genes: 50
+  timeout: 1200
+  use_reference: false
+
+# Clinical DEG over-representation (GO / KEGG / Reactome), GSEA on ranked
+# log2FC, and GSVA on subtype-mean expression. Each database is a separate
+# folder. Missing Bioconductor packages skip that database only.
+pathway:
+  enable: true
+  go: true
+  kegg: true
+  gsea: true
+  gsva: true
+  reactome: true
+  padj_cutoff: 0.05
+  min_deg: 10
+  ora_lfc: 0.25
+
+# Trajectory is off unless Advanced Settings ticks CytoTRACE2 / Monocle3
+# and at least one lineage of interest.
+trajectory:
+  enable: false
+  cytotrace2: true
+  monocle3: true
+  lineages: []
+  min_cells: 200
+  cytotrace2_max_cells: 20000
+  save_cds_max_cells: 40000

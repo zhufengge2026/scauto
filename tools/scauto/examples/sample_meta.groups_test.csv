@@ -1,0 +1,5 @@
+sample,group,Timepoint,n_cells
+sampleA,GroupB,Baseline,4000
+sampleB,GroupB,Baseline,4000
+sampleC,GroupA,Baseline,4000
+sampleD,GroupA,Baseline,4000

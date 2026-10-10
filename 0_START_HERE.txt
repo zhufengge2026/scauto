@@ -1,0 +1,49 @@
+Single-cell analysis autopilot
+==============================
+
+Stay in this folder. Three files at the top are enough.
+
+  0_START_HERE.txt       this page
+  1_Install_R            install R (once)
+  2_Start                open the helper
+
+
+First time
+----------
+
+Mac:      double-click  1_Install_R.command
+          then          2_Start.command
+          If macOS blocks a file: Control-click it → Open.
+
+Windows:  double-click  1_Install_R.bat
+          then          2_Start.bat
+          Tick "Add R to PATH" if you see it.
+
+A black window stays open. Leave it open.
+Browser:  http://127.0.0.1:8765
+
+
+First analysis
+--------------
+
+In Choose folder, pick the parent of your 10x sample folders
+(each folder has matrix.mtx, barcodes.tsv, and features.tsv).
+Tick samples, enter groups if you need a comparison, then
+Start analysis. Stay online the first time (packages download).
+
+This GitHub copy does not include count matrices. Add your own
+Cell Ranger folders under data/ or anywhere you choose.
+
+
+More reading (optional)
+-----------------------
+
+  docs/HOW_TO_USE_THE_ANALYSER.txt  full steps
+  docs/HOW_TO_PREPARE_DATA.txt  same as the in-app How to Prepare Data page
+  docs/HOW_TO_USE_HPC.txt     same as the in-app How to Use HPC page
+  docs/INSTALL.md             install checklist
+  docs/USER_MANUAL.md    longer manual
+  docs/FOR_COLLEAGUES.md why this helper exists
+
+Do not rearrange tools/, viz/, or resources/.
+Do not copy the lab HPC file hpc/config.env.

@@ -1,0 +1,6 @@
+"ref_id","citation_short","title","journal_year","doi","pmid","note","verified"
+"Hao2021","Hao et al. 2021","Integrated analysis of multimodal single-cell data","Cell 2021","10.1016/j.cell.2021.04.048","34062119","Azimuth / HuBMAP PBMC multimodal reference marker panels",TRUE
+"Liberzon2015","Liberzon et al. 2015","The Molecular Signatures Database (MSigDB) hallmark gene set collection","Cell Syst 2015","10.1016/j.cels.2015.12.004","26771021","MSigDB Hallmark (IFN / UPR / cell-cycle / inflammatory)",TRUE
+"Ashburner2000","Ashburner et al. 2000 / GO","Gene ontology: tool for the unification of biology","Nat Genet 2000","10.1038/75556","10802651","GO Biological Process via MSigDB",TRUE
+"Kanehisa2000","Kanehisa & Goto 2000 / KEGG","KEGG: Kyoto Encyclopedia of Genes and Genomes","Nucleic Acids Res 2000","10.1093/nar/28.1.27","10592173","KEGG pathways via MSigDB",TRUE
+"Gray2024","Gray et al. 2024","Human γδ T cells in diverse tissues exhibit site-specific maturation dynamics across the life span","Sci Immunol 2024","10.1126/sciimmunol.adn3954","38848342","Lifespan γδT atlas: Naive / Tissue-adapted / Cytolytic / Repair modules",TRUE

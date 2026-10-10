@@ -1,0 +1,50 @@
+#!/bin/bash
+# PBS: PBMC Auto-Pilot on your HPC (shared cluster, not a lab server).
+# Submit with: bash tools/scauto/hpc/submit_scauto.sh
+#
+#PBS -N scauto
+#PBS -j oe
+#PBS -o $HOME/scauto/hpc/logs/
+
+set -euo pipefail
+
+PROJECT_DIR="${PROJECT_DIR:-$HOME/scauto}"
+cd "${PBS_O_WORKDIR:-${PROJECT_DIR}}"
+
+if [[ -f /etc/profile.d/lmod.sh ]]; then
+  # shellcheck disable=SC1091
+  source /etc/profile.d/lmod.sh
+fi
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}/hpc/config.env"
+
+mkdir -p "${PROJECT_DIR}/hpc/logs" "${PROJECT_DIR}/results"
+module purge 2>/dev/null || true
+module load "${R_MODULE}"
+
+export PROJECT_DIR
+export LOCAL_PROJECT_DIR="${PROJECT_DIR}"
+export R_LIBS_USER="${PROJECT_DIR}/Rlib"
+export OMP_NUM_THREADS="${PBS_PPN:-8}"
+export MKL_NUM_THREADS="${PBS_PPN:-8}"
+export OPENBLAS_NUM_THREADS="${PBS_PPN:-8}"
+# Compute nodes usually cannot download CRAN packages or Azimuth/CellTypist.
+export SCAUTO_NO_PKG_INSTALL=1
+export CELLTYPIST_FOLDER="${PROJECT_DIR}/.cache/celltypist"
+export XDG_CACHE_HOME="${PROJECT_DIR}/.cache"
+
+INPUT="${SCAUTO_INPUT:-${PROJECT_DIR}/mtx_files_per_sample}"
+META="${SCAUTO_META:-${PROJECT_DIR}/tools/scauto/examples/sample_meta.smoke.csv}"
+OUT="${SCAUTO_OUT:-${PROJECT_DIR}/results/scauto_hpc}"
+SAMPLES="${SCAUTO_SAMPLES:-}"
+
+cmd=(Rscript "${PROJECT_DIR}/tools/scauto/run_scauto.R"
+  --project "${PROJECT_DIR}"
+  --input "${INPUT}"
+  --meta "${META}"
+  --outdir "${OUT}"
+  --allow-large)
+if [[ -n "${SAMPLES}" ]]; then
+  cmd+=(--samples "${SAMPLES}")
+fi
+"${cmd[@]}"

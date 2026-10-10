@@ -1,0 +1,5 @@
+"ref_id","citation_short","title","journal_year","doi","pmid","note","verified"
+"Hao2021","Hao et al. 2021","Integrated analysis of multimodal single-cell data","Cell 2021","10.1016/j.cell.2021.04.048","34062119","Azimuth / HuBMAP PBMC multimodal reference marker panels",TRUE
+"Stewart2021","Stewart et al. 2021","Single-Cell Transcriptomic Analyses Define Distinct Peripheral B Cell Subsets and Discrete Development Pathways","Front Immunol 2021","10.3389/fimmu.2021.602539","33815394","Peripheral B scRNA-seq; DN2/ABC TBX21+ITGAX+FCRL5",TRUE
+"Liberzon2015","Liberzon et al. 2015","The Molecular Signatures Database (MSigDB) hallmark gene set collection","Cell Syst 2015","10.1016/j.cels.2015.12.004","26771021","MSigDB Hallmark (IFN / UPR / cell-cycle / inflammatory)",TRUE
+"Ashburner2000","Ashburner et al. 2000 / GO","Gene ontology: tool for the unification of biology","Nat Genet 2000","10.1038/75556","10802651","GO Biological Process via MSigDB",TRUE

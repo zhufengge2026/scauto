@@ -1,0 +1,32 @@
+{
+  "description": "Parent-cluster context and diagnostic genes for CASSIA subcluster annotation inside scauto lineage reclustering.",
+  "tissue": "peripheral blood",
+  "species": "human",
+  "lineages": {
+    "CD4_T": {
+      "major": "CD4 T cells from human PBMC (Harmony-integrated CD4 lineage reclustering)",
+      "hint": "CD4 T cell",
+      "genes": "CD4,CD3D,CD3E,CD8A,CD8B,CCR7,SELL,LEF1,TCF7,IL7R,CD27,CD28,FOXP3,IL2RA,IKZF2,CTLA4,TIGIT,RTKN2,MAF,CXCR5,CXCR3,CCR6,CCR4,RORC,RORA,TBX21,GATA3,BCL6,PDCD1,TOX,HAVCR2,LAG3,GZMK,GZMB,PRF1,NKG7,MKI67,TOP2A,STMN1,ISG15,IFIT1,MX1,OAS1,ANXA1,KLRB1,CXCR6,LAYN,IL10"
+    },
+    "CD8_T_unconv": {
+      "major": "CD8 T cells mixed with MAIT and gamma-delta T cells from human PBMC (Harmony-integrated CD8/unconv reclustering)",
+      "hint": "CD8 T cell",
+      "genes": "CD8A,CD8B,CD3D,CD3E,CD4,TRAC,TRBC1,TRDC,TRGC1,TRGV9,TRDV2,KLRB1,SLC4A10,TRAV1-2,NCR1,NKG7,GNLY,GZMK,GZMB,GZMH,PRF1,FGFBP2,FCGR3A,CCR7,SELL,LEF1,TCF7,IL7R,CD27,CD28,CX3CR1,KLRG1,EOMES,TBX21,ZEB2,TOX,PDCD1,LAG3,HAVCR2,TIGIT,MKI67,ISG15,IFIT1,MX1,ZBTB16,IL23R,KIR3DL1,KIR2DL3"
+    },
+    "NK": {
+      "major": "NK cells from human PBMC (Harmony-integrated NK lineage reclustering)",
+      "hint": "NK cell",
+      "genes": "FCGR3A,NCAM1,XCL1,XCL2,SELL,IL7R,GZMK,GZMB,PRF1,KLRC2,KLRC1,KLRF1,KIR2DL1,KIR2DL3,KIR3DL1,CX3CR1,FGFBP2,SPON2,NKG7,GNLY,ISG15,IFIT1,MX1,MKI67,CD3E,CD8A,FCER1G,CD160,KIT,NCR1,TBX21,EOMES,ZEB2,CD27"
+    },
+    "Mono_DC": {
+      "major": "Monocytes mixed with dendritic cells from human PBMC (Harmony-integrated Mono/DC reclustering)",
+      "hint": "monocyte",
+      "genes": "CD14,FCGR3A,S100A8,S100A9,S100A12,LYZ,VCAN,FCN1,CD68,MS4A7,CSF1R,C1QA,CX3CR1,FCER1A,CD1C,CLEC9A,CLEC10A,XCR1,IRF8,IRF4,LILRA4,IL3RA,CLEC4C,GZMB,TCF4,HLA-DRA,ISG15,IFIT1,MX1,MKI67,IL1B,TNF,PPBP,PF4,MS4A1,CD3E,CDKN1C,IRF7"
+    },
+    "B_plasma": {
+      "major": "B cells mixed with plasma cells from human PBMC (Harmony-integrated B/plasma reclustering)",
+      "hint": "B cell",
+      "genes": "MS4A1,CD19,CD79A,CD79B,CD22,PAX5,TCL1A,FCER2,IL4R,IGHD,IGHM,IGHG1,IGHA1,JCHAIN,SDC1,CD38,TNFRSF17,XBP1,MZB1,PRDM1,IRF4,CD27,CD24,FCRL5,ITGAX,TBX21,ISG15,IFIT1,MX1,MKI67,AICDA,BCL6,CD3E,CD8A,NKG7,HBA1,TNFRSF13B,COCH"
+    }
+  }
+}

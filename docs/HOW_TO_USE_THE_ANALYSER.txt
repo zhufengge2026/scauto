@@ -1,0 +1,282 @@
+How to use the analyser
+=======================
+
+This program turns single-cell sequencing folders into figures and tables.
+You do not need to write code, and you do not need to know R or Seurat.
+
+The analysis runs on this computer. The browser is only the control panel.
+Nothing is uploaded to a public website.
+
+
+1. What you need
+----------------
+
+1. A computer (Mac or Windows).
+2. Internet the first time (later runs can be offline).
+3. About 16 GB of RAM or more.
+   The four trial samples need about 13 GB.
+4. A few GB of free disk space.
+5. A browser: Chrome, Edge, Firefox, or Safari.
+   Do not use Internet Explorer.
+
+You do not need your own data for a first try. This folder already
+includes four practice samples.
+
+
+2. First time: install R, then open the helper
+----------------------------------------------
+
+The analysis needs a program called R. Without R, the helper will not start.
+
+Stay in THIS folder. Do not go into tools/ or docs/ unless you want extra reading.
+
+Mac
+---
+1. Open this folder.
+2. Double-click  1_Install_R.command
+   If nothing happens: open Terminal, drag that file into the window,
+   and press Enter.
+3. Follow the prompts. Stay online. This may take a few minutes.
+4. Double-click  2_Start.command
+   If macOS says it cannot be opened: Control-click the file and choose Open.
+   If it still will not run, open Terminal, type this line, press Enter,
+   then double-click 2_Start.command again:
+
+     chmod +x 1_Install_R.command 2_Start.command
+
+Windows
+-------
+1. Open this folder.
+2. Double-click  1_Install_R.bat
+3. Follow the prompts to install R. Stay online.
+   If you see "Add R to PATH", tick it.
+4. Double-click  2_Start.bat
+
+A black Terminal / command window will stay open. Leave it open.
+Closing it stops the helper.
+
+Your browser should open a page. If it does not, paste this address
+into Chrome or Safari:
+
+    http://127.0.0.1:8765
+
+The first Launch may download a few small helper packages. Stay online.
+
+
+3. First run: use the trial samples (recommended)
+-------------------------------------------------
+
+On the web page:
+
+1. Click  Use trial samples (2 GroupA + 2 GroupB)
+   This ticks four practice samples:
+     sampleA, sampleB   = GroupB
+     sampleC, sampleD = GroupA
+   All four are Baseline libraries, about 24,000 cells.
+2. Check that all four samples are ticked.
+3. Continue to Groups. Names are already filled. Leave them.
+4. Leave Settings as they are.
+5. Click  Start analysis
+
+The first Start analysis downloads the analysis packages.
+That needs internet and often takes 10-40 minutes. Wait.
+Each line on the page goes from waiting to checking to OK.
+The real analysis starts after every line is OK.
+
+The trial itself often takes about one hour (longer on a laptop).
+While it runs:
+  - Do not close the black window.
+  - Do not close this browser tab.
+  - Do not let the computer sleep.
+  - Plug in power if you can.
+  - Close Excel with huge files, extra browser tabs, and other R
+    sessions so RAM is free.
+
+
+4. Where the results are
+------------------------
+
+When it finishes, stay on the Run page. You can:
+
+  - Click  Download all results (.zip)   to pack the whole results folder
+  - Click  Open results folder           to browse the files
+
+Results are saved under this folder, for example:
+
+    results/scauto_YYYYMMDD_HHMMSS
+
+Look at:
+
+  REPORT.md     Short summary of the run
+  figures/      QC plots and UMAPs (for slides)
+  tables/       Spreadsheets (open in Excel)
+  lineage/      Figures and tables by cell lineage
+                (T, NK, monocyte/DC, B/plasma)
+  clinical/     Group comparison: cell proportions, DEGs, pathways
+  objects/atlas_seurat.rds
+                Integrated Seurat object for further analysis in R
+                (skipped if the cell count is too large)
+
+If you want to do more analysis yourself, use the RDS file in the
+results folder:
+
+    objects/atlas_seurat.rds
+
+That file already has QC, clustering, and cell-type labels. You do not
+need to re-run this helper. In R:
+
+    library(Seurat)
+    obj <- readRDS("objects/atlas_seurat.rds")
+
+If the run had too many cells, the RDS is not written. Tables and
+figures are still there.
+
+To read results only, you need Excel (or similar) and a PNG/PDF viewer.
+You do not need R.
+
+If Excel turns gene names into dates, import the CSV as text,
+or open it in Google Sheets.
+
+
+5. Later: your own samples
+--------------------------
+
+This helper reads folders from the 10x Genomics platform after Cell Ranger.
+Each sample is one folder. The folder name is the sample ID. Inside it
+you need these three files (names must match; .gz is fine):
+
+    matrix.mtx
+    barcodes.tsv
+    features.tsv     (genes.tsv is also OK)
+
+A Cell Ranger  filtered_feature_bc_matrix  folder also works.
+Use filtered matrices, not raw.
+
+Several samples: put those folders next to each other and choose the
+parent folder on the web page. 
+Steps on the page:
+
+1. Choose folder — pick that parent folder (or a single sample folder
+   that already has the three files).
+2. Tick the samples to include. Untick the rest.
+3. Read the RAM / disk note. If this computer is too small, do not force
+   a local run. See section 6.
+4. Groups — type a group name for each sample (example: GroupA / GroupB).
+   Use the same spelling for samples in the same group.
+   Two groups are needed for a comparison. Leave groups blank only if you
+   do not need a clinical contrast (then group tests are skipped).
+5. Settings — leave defaults for PBMC / blood (mitochondrial genes ≤ 10%).
+   If this is liver tissue, choose Liver. That sets mitochondrial genes
+   to ≤ 50%, because liver cells normally have more mitochondrial RNA.
+6. Click  Start analysis.
+
+If the data is not from 10x Genomics (Excel, RDS, h5ad, FASTQ, MGI, or
+another company), convert each sample to the three-file folder first.
+Open  How to Prepare Data  at the top of the page. This helper does not
+align raw sequencing reads.
+
+
+6. If this computer is too small
+--------------------------------
+
+The four trial samples usually finish on a workstation or a strong laptop.
+Many samples, or more than about 30,000-50,000 cells, often fail on a
+laptop. Use the university cluster (HPC) instead.
+
+You need:
+  - Your own HPC account (ask university IT department).
+  - Do not borrow someone else's account, and do not copy hpc/config.env.
+
+On the page, open  How to Use HPC  and set up SSH key login once.
+Then:  Use university HPC  →  Test SSH connection  →  Submit to HPC.
+Only the samples you ticked are uploaded. Keep this computer on so
+results can copy back.
+
+Closing the helper does not cancel a job already on the cluster.
+Reopen the helper and click  Continue last HPC job  to wait and
+pull results.
+
+
+7. Trouble shooting
+-------------------
+
+Launch does nothing / "R is not installed"
+    Go back to section 2. Install R, then Launch again. Stay online.
+
+The browser page is blank
+    Paste  http://127.0.0.1:8765  into Chrome or Safari.
+    Close any old black Launch window first, then Launch again.
+
+"Cannot find the project root (need viz/palette.R)"
+    The copy is incomplete. Keep this whole folder, especially viz/ and
+    tools/. Do not copy a single file on its own.
+
+The trial button does nothing
+    The four folders sampleA, sampleB, sampleC, sampleD are missing under
+    data/trial_4samples/. Ask for a complete copy of this folder.
+
+First Start sits on "install" for a long time
+    Normal. Seurat is large. Stay online. Do not close the black window.
+
+Helper says RAM or disk is too low
+    Untick samples, close other programs, or use university HPC.
+
+Mac: "2_Start.command cannot be opened"  (or Launch.command)
+    Control-click the file and choose Open.
+    Or: System Settings → Privacy & Security → Open Anyway.
+
+The page says "Page lost contact"
+    The analysis may still be running in the black window.
+    To stop everything: close that black window, then Launch again.
+
+The run failed
+    Keep the window. Copy the Log (scroll to the first line if needed)
+    and send it to whoever gave you this helper. Also send
+    logs/pipeline.log from the results folder.
+
+
+8. Current limitations (this version)
+------------------------------------
+
+This helper does a standard PBMC / clinical run. It does not yet do
+everything you might want for a paper.
+
+- Clinical tests use one grouping column at a time (for example GroupA vs
+  GroupB). You can add extra columns (for example Timepoint), and each
+  column is tested on its own. Combined designs are not set up yet —
+  for example GroupA × Timepoint, or other multi-factor combinations.
+- Advanced methods are not included yet, including cell–cell
+  communication (CellChat, NicheNet, and similar) and SCENIC (gene
+  regulatory networks).
+
+If you need those analyses, use the RDS file in the results folder
+(`objects/atlas_seurat.rds`) and continue in R.
+
+
+9. Please do not
+----------------
+
+- Do not copy or email the lab's hpc/config.env, or share an HPC account.
+- Do not edit the R scripts.
+- Do not start a second Launch while the first black window is still open.
+  If the page looks stuck, close the old window first.
+- Do not use Internet Explorer.
+- Do not put 50,000+ cells on a 16 GB laptop. Use HPC.
+- Do not let the computer sleep or shut down during a local run.
+
+
+10. What is in this folder
+--------------------------
+
+0_START_HERE.txt         Short start page (one folder up from docs/)
+1_Install_R.command/.bat Install R (double-click; one folder up)
+2_Start.command/.bat     Open the helper (double-click; one folder up)
+docs/                    This folder — longer manuals
+data/trial_4samples/     Four practice samples
+tools/scauto/            The program (do not rearrange)
+viz/                     Colours and marker lists (required; do not delete)
+resources/               Literature gene sets (required; do not delete)
+
+Copy this whole folder to a colleague.
+Do not copy the full lab project. It is hundreds of gigabytes and the
+helper will not start from a single file.
